@@ -17,9 +17,9 @@ export const projects = [
     id: "evm-hr-platform",
     domains: ["AI", "HR-tech", "B2B SaaS"],
     tags: ["Next.js", "Nest.js", "TypeScript", "D3.js", "Highcharts", "RAG", "OpenAI API", "Zustand", "Playwright", "WebSocket"],
-    accent: "#ec4899",
+    accent: "#f472b6",
     initials: "EVM",
-    logoColor: "#f472b6",
+    logoColor: "#f9a8d4",
     logo: "/logos/evm-logo.svg",
     screens: [
       { id: "assessment", icon: "🎯", src: "https://storage.yandexcloud.net/katyaka/portfolio/bitkovnet1.png" },
@@ -45,9 +45,9 @@ export const projects = [
     id: "bitkov-exchange",
     domains: ["Fin-tech", "Crypto"],
     tags: ["React", "TypeScript", "Node.js", "Express", "PostgreSQL", "Sequelize", "Telegraf", "Jest"],
-    accent: "#7c3aed",
+    accent: "#a78bfa",
     initials: "BTE",
-    logoColor: "#a78bfa",
+    logoColor: "#9175ff",
     screens: [
       { id: "exchange", icon: "📈", src: "https://storage.yandexcloud.net/katyaka/portfolio/bitkovnet1.png" },
       { id: "reviews", icon: "🔄", src: "https://storage.yandexcloud.net/katyaka/portfolio/bitkovnet2.png" },

@@ -19,7 +19,8 @@
   },
   "projects": {
     "geo-intelligence": {
-      "title": "Inzhgidroproekt AI Platform",
+      "company": "Inzhgidroproekt",
+      "subtitle": "Geological AI Platform",
       "description": "Vertical AI platform for hydrogeologists covering the full cycle of geological documentation work. Automated parsing of hundreds of PDF reports and borehole passports including scans — structured data extraction to DB via OCR pipeline. RAG-powered chat with semantic search across reports: inline citations with links to specific source pages, hybrid search (vector + keyword) with cross-encoder reranking. Interactive borehole map on Mapbox with filtering and parameter cards. Borehole passport builder with geological cross-section visualization. AI-powered report compliance checker against configurable regulatory checklists. Monorepo architecture: 3 services (web, api, ml), provider abstractions for LLM/embedding/storage, SSE streaming. Replaced hours of manual PDF lookup with minutes — deployed for a real geological engineering company.",
       "screens": {
         "rag-chat": "RAG Chat",
@@ -28,7 +29,8 @@
       }
     },
     "evm-hr-platform": {
-      "title": "EVM — AI HR Platform",
+      "company": "EVM",
+      "subtitle": "AI HR Platform",
       "description": "AI-powered B2B platform for team assessment and talent development, built from zero to 12 paying clients (3 enterprise, 9 SMB). Full frontend ownership — architecture, development, deployment, code review. Monorepo of 8 Next.js apps, each with a dedicated NestJS BFF layer. Design system of 57 components with unified API, design tokens, and Figma sync — cut page development time from 6–7 to 2–3 hours. Survey constructor with 18 scale types (selection, ranking, matrices), 360° assessment module with auto-save and timers, multi-step forms with validation (React Hook Form + Zod). Real-time dashboards built with D3.js and Highcharts, WebSocket updates, PDF export. Initiated RAG integration: digitized proprietary talent assessment methodology as LLM knowledge base — report preparation dropped from 3–4 hours to minutes. Built testing from scratch: Jest + Playwright, scaled coverage from 30% to 80% in 2 months. Acted as Scrum Master (ICP certified), mentored a fullstack developer. Two parallel tracks: internal HR process automation for parent company + external B2B product launch.",
       "screens": {
         "assessment": "Assessment 360°",
@@ -37,7 +39,8 @@
       }
     },
     "onetwtrip-whitelabel": {
-      "title": "OneTwoTrip",
+      "company": "OneTwoTrip",
+      "subtitle": "White-Label Travel Engine",
       "description": "B2B white-label engine for one of Russia's leading travel platforms. Shipped 11 white-label solutions and maintained 20+ active integrations for major banks and airlines — Raiffeisen, Tinkoff, VTB, Gazprombank, Sber, Alfabank, Aeroflot, S7, Red Wings. Embedded search, booking, and payment flows into client domains with full brand customization. Built and maintained a shared UI kit of 11 reusable components: Storybook documentation, versioning, cross-browser and cross-brand consistency. Implemented 6 major loyalty program integrations into booking and payment flows with real-time sync via Socket.io. Led legacy JavaScript to TypeScript migration with full test coverage. Tens of thousands of monthly users through white-label flows.",
       "screens": {
         "booking": "Booking Flow",
@@ -46,8 +49,9 @@
       }
     },
     "bitkov-exchange": {
-      "title": "Bitkov.net - Cryptocurrency Exchange",
-      "description": "Centralized cryptocurrency exchange platform. Full-stack development: client interface (React + TypeScript) and backend services (Node.js, Express, PostgreSQL). User dashboard with order booking, deal and rate tracking, referral program. Integrated external exchange API (Garantex) for real-time rate data. Built a Telegram bot (Node.js + Telegraf) for order management. Achieved 90–95% test coverage on critical user flows with Jest.",
+      "company": "Bitkov.net",
+      "subtitle": "Cryptocurrency Exchange",
+      "description": "Сryptocurrency exchange platform. Full-stack development: client interface (React + TypeScript) and backend services (Node.js, Express, PostgreSQL). User dashboard with order booking, deal and rate tracking, referral program. Integrated external exchange API (Garantex) for real-time rate data. Built a Telegram bot (Node.js + Telegraf) for order management. Achieved 90–95% test coverage on critical user flows with Jest.",
       "screens": {
         "exchange": "Exchange",
         "reviews": "Reviews"

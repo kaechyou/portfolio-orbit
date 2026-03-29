@@ -338,6 +338,13 @@ body,
   width: 100%;
 }
 
+.card-subtitle {
+  margin: 2px 0 0;
+  font-size: 0.82rem;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
 .hint-label {
   position: absolute;
   bottom: 28px;

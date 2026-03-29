@@ -46,14 +46,14 @@ export default function FloatingObject({ project, index, total, onSelect }: Prop
 
       const mat = (cardRef.current as Mesh).material as any;
       if (mat) {
-        const targetEmissive = hovered ? 0.7 : 0.22;
+        const targetEmissive = hovered ? 0.55 : 0.25;
         mat.emissiveIntensity += (targetEmissive - mat.emissiveIntensity) * 0.12;
       }
     }
     if (glowRef.current) {
       const mat = (glowRef.current as Mesh).material as any;
       if (mat) {
-        const targetOpacity = hovered ? 0.45 : 0.0;
+        const targetOpacity = hovered ? 0.35 : 0.0;
         mat.opacity += (targetOpacity - mat.opacity) * 0.1;
       }
     }
@@ -89,7 +89,6 @@ export default function FloatingObject({ project, index, total, onSelect }: Prop
             document.body.style.cursor = "auto";
           }}
         >
-          {/* card body */}
           <mesh ref={cardRef} castShadow>
             <boxGeometry args={[1.6, 1.05, 0.055]} />
             <meshStandardMaterial
@@ -97,7 +96,7 @@ export default function FloatingObject({ project, index, total, onSelect }: Prop
               roughness={0.15}
               metalness={0.5}
               emissive={accentColor}
-              emissiveIntensity={0.22}
+              emissiveIntensity={0.25}
             />
           </mesh>
 
@@ -107,7 +106,7 @@ export default function FloatingObject({ project, index, total, onSelect }: Prop
             <meshStandardMaterial
               color={project.accent}
               emissive={project.accent}
-              emissiveIntensity={3.0}
+              emissiveIntensity={1.8}
               roughness={0.05}
             />
           </mesh>
@@ -116,8 +115,8 @@ export default function FloatingObject({ project, index, total, onSelect }: Prop
           {imageLoaded && project.logo ? (
             <Image
               url={project.logo}
-              position={[-0.5, 0.1, 0.035]}
-              scale={[0.2, 0.2]}
+              position={[-0.56, 0.19, 0.035]}
+              scale={[0.22, 0.22]}
               transparent
               toneMapped={false}
             />
@@ -126,38 +125,64 @@ export default function FloatingObject({ project, index, total, onSelect }: Prop
           {/* fallback initials */}
           {!imageLoaded && (
             <Text
-              position={[-0.5, 0.1, 0.035]}
+              position={[-0.56, 0.30, 0.035]}
               fontSize={0.15}
               color={project.logoColor || project.accent}
               anchorX="center"
-              anchorY="middle"
+              anchorY="top"
               font={undefined}
             >
-              {project.initials || project.title.slice(0, 2).toUpperCase()}
+              {project.initials || project.company.slice(0, 2).toUpperCase()}
             </Text>
           )}
 
-          {/* project name */}
+          {/* company name */}
           <Text
-            position={[-0.25, 0.1, 0.035]}
+            position={[-0.36, 0.33, 0.035]}
             fontSize={0.12}
-            color="#c8d8f0"
+            color="#e2ecf8"
             anchorX="left"
-            anchorY="middle"
-            maxWidth={0.9}
+            anchorY="top"
+            maxWidth={1.0}
             font={undefined}
           >
-            {project.title}
+            {project.company}
           </Text>
+
+          {/* subtitle */}
+          <Text
+            position={[-0.36, 0.16, 0.035]}
+            fontSize={0.078}
+            color="#b8c8de"
+            anchorX="left"
+            anchorY="top"
+            maxWidth={1.1}
+            font={undefined}
+          >
+            {project.subtitle}
+          </Text>
+
+          {/* divider */}
+          <mesh position={[0, -0.07, 0.03]}>
+            <boxGeometry args={[1.2, 0.003, 0.001]} />
+            <meshStandardMaterial
+              color={project.accent}
+              emissive={project.accent}
+              emissiveIntensity={1.5}
+              transparent
+              opacity={0.35}
+              roughness={0.05}
+            />
+          </mesh>
 
           {/* domains */}
           <Text
-            position={[0, -0.18, 0.035]}
-            fontSize={0.087}
-            color={project.accent}
+            position={[0, -0.19, 0.035]}
+            fontSize={0.08}
+            color="#c8d8f0"
             anchorX="center"
             anchorY="middle"
-            letterSpacing={0.05}
+            letterSpacing={0.04}
             font={undefined}
           >
             {project.domains.slice(0, 3).join("  ·  ")}
@@ -165,12 +190,12 @@ export default function FloatingObject({ project, index, total, onSelect }: Prop
 
           {/* tags */}
           <Text
-            position={[0, -0.32, 0.035]}
-            fontSize={0.087}
-            color={project.accent}
+            position={[0, -0.33, 0.035]}
+            fontSize={0.072}
+            color="#b8c8de"
             anchorX="center"
             anchorY="middle"
-            letterSpacing={0.05}
+            letterSpacing={0.03}
             font={undefined}
           >
             {project.tags.slice(0, 3).join("  ·  ")}

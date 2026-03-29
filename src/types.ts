@@ -6,7 +6,8 @@ interface ProjectScreen {
 
 export interface Project {
   id: string;
-  title: string;
+  company: string;
+  subtitle: string;
   description: string;
   domains: string[];
   tags: string[];
