@@ -8,6 +8,7 @@ import LanguageSwitcher from "./components/LanguageSwitcher";
 import HeroIntro from "./components/HeroIntro";
 import { PerspectiveCamera } from "three";
 import { Project } from "./types";
+import ProjectCard from "./components/ProjectCard";
 
 function SceneReady({ onReady }: { onReady: () => void }) {
   const called = useRef(false);
@@ -49,6 +50,11 @@ export default function App() {
   function handleSelect(project: Project, position: [number, number, number]) {
     setSelectedProject(project);
     setTargetPosition(position);
+  }
+
+  function handleClose() {
+    setSelectedProject(null);
+    setTargetPosition(null);
   }
 
   return (
@@ -116,6 +122,10 @@ export default function App() {
             autoRotateSpeed={0.35}
           />
         </Canvas>
+
+        {selectedProject && (
+          <ProjectCard project={selectedProject} onClose={handleClose} />
+        )}
 
         {!selectedProject && (
           <>

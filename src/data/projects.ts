@@ -8,9 +8,9 @@ export const projects = [
     logoColor: "#00d4ff",
     logo: "/logos/inzhgidroproekt-logo.svg",
     screens: [
-      { id: "rag-chat", icon: "💬", src: "https://storage.yandexcloud.net/katyaka/bitkovnet1.png" },
-      { id: "borehole-map", icon: "🗺️", src: "https://storage.yandexcloud.net/katyaka/bitkovnet1.png" },
-      { id: "passport-builder", icon: "📐", src: "https://storage.yandexcloud.net/katyaka/bitkovnet1.png" },
+      { id: "rag-chat", icon: "💬", src: "https://storage.yandexcloud.net/katyaka/portfolio/bitkovnet1.png" },
+      { id: "borehole-map", icon: "🗺️", src: "https://storage.yandexcloud.net/katyaka/portfolio/bitkovnet1.png" },
+      { id: "passport-builder", icon: "📐", src: "https://storage.yandexcloud.net/katyaka/portfolio/bitkovnet1.png" },
     ],
   },
   {
@@ -36,9 +36,9 @@ export const projects = [
     logoColor: "#fbbf24",
     logo: "/logos/ott-logo.svg",
     screens: [
-      { id: "booking", icon: "✈️", src: "https://storage.yandexcloud.net/katyaka/bitkovnet1.png" },
-      { id: "branding", icon: "🎨", src: "https://storage.yandexcloud.net/katyaka/bitkovnet1.png" },
-      { id: "loyalty", icon: "💳", src: "https://storage.yandexcloud.net/katyaka/bitkovnet1.png" },
+      { id: "booking", icon: "✈️", src: "https://storage.yandexcloud.net/katyaka/portfolio/bitkovnet1.png" },
+      { id: "branding", icon: "🎨", src: "https://storage.yandexcloud.net/katyaka/portfolio/bitkovnet1.png" },
+      { id: "loyalty", icon: "💳", src: "https://storage.yandexcloud.net/katyaka/portfolio/bitkovnet1.png" },
     ],
   },
   {
