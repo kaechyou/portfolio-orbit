@@ -6,9 +6,10 @@ export default function HeroIntro() {
   return (
     <div className="hero-intro">
       <div className="hero-intro-line">
-        <p className="hero-greeting">
-          {t('hero.greeting')} <span>{t('hero.name')}</span>
-        </p>
+        <p className="hero-greeting">{t('hero.greeting')}</p>
+      </div>
+      <div className="hero-intro-line">
+        <p className="hero-name">{t('hero.name')}</p>
       </div>
       <div className="hero-intro-line">
         <p className="hero-role">{t('hero.title')}</p>
