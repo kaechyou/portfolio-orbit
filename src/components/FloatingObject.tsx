@@ -4,14 +4,14 @@ import { Billboard, Float, Text, Image, RoundedBox } from "@react-three/drei";
 import { Mesh, Color } from "three";
 import { Project } from "../types";
 
-interface Props {
+interface FloatingObjectProps {
   project: Project;
   index: number;
   total: number;
   onSelect: (project: Project, position: [number, number, number], clickOrigin: { x: number; y: number }) => void;
 }
 
-export default function FloatingObject({ project, index, total, onSelect }: Props) {
+export default function FloatingObject({ project, index, total, onSelect }: FloatingObjectProps) {
   const cardRef = useRef<Mesh>(null);
   const glowRef = useRef<Mesh>(null);
   const [hovered, setHovered] = useState(false);

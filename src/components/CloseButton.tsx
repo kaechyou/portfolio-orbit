@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './CloseButton.module.css';
 
 interface CloseButtonProps {
   onClick?: (e: React.MouseEvent) => void;
@@ -6,12 +7,8 @@ interface CloseButtonProps {
   ariaLabel?: string;
 }
 
-export const CloseButton: React.FC<CloseButtonProps> = ({ onClick, className = '', ariaLabel = 'Close' }) => {
-  const baseClasses = `btn-base ${className}`.trim();
-
-  return (
-    <button className={baseClasses} onClick={onClick} aria-label={ariaLabel}>
-      ✕
-    </button>
-  );
-};
+export const CloseButton: React.FC<CloseButtonProps> = ({ onClick, className = '', ariaLabel = 'Close' }) => (
+  <button className={`${styles.btn} ${className}`.trim()} onClick={onClick} aria-label={ariaLabel}>
+    ✕
+  </button>
+);

@@ -3,14 +3,15 @@ import { createPortal } from "react-dom";
 import { useEscapeKey } from "../hooks";
 import { CloseButton } from './CloseButton';
 import { Project } from "../types";
+import styles from "./ProjectCard.module.css";
 
-interface Props {
+interface ProjectCardProps {
   project: Project;
   onClose: () => void;
   clickOrigin: { x: number; y: number } | null;
 }
 
-export default function ProjectCard({ project, onClose, clickOrigin }: Props) {
+export default function ProjectCard({ project, onClose, clickOrigin }: ProjectCardProps) {
   const [closing, setClosing] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const originX = clickOrigin ? clickOrigin.x - window.innerWidth / 2 : 0;
@@ -36,11 +37,11 @@ export default function ProjectCard({ project, onClose, clickOrigin }: Props) {
 
   return (
     <div
-      className={`overlay${closing ? " overlay--closing" : ""}`}
+      className={`${styles.overlay}${closing ? ` ${styles.closing}` : ''}`}
       onClick={handleClose}
     >
       <div
-        className={`project-card${closing ? " project-card--closing" : ""}`}
+        className={`${styles.card}${closing ? ` ${styles.closing}` : ''}`}
         onClick={(e) => e.stopPropagation()}
         onAnimationEnd={() => { if (closing) onClose(); }}
         style={{
@@ -50,24 +51,24 @@ export default function ProjectCard({ project, onClose, clickOrigin }: Props) {
         } as React.CSSProperties}
       >
         <div
-          className="card-accent-bar"
+          className={styles.accentBar}
           style={{ background: `linear-gradient(90deg, ${project.accent}, ${project.accent}88)` }}
         />
 
-        <CloseButton onClick={() => handleClose()} className="close-btn" />
+        <CloseButton onClick={() => handleClose()} className={styles.closeBtn} />
 
-        <div className="card-body">
-          <div className="card-header">
+        <div className={styles.body}>
+          <div className={styles.header}>
             {project.logo ? (
               <img
-                className="card-logo"
+                className={styles.logo}
                 src={project.logo}
                 alt=""
                 style={{ borderColor: `${project.accent}44`, background: `${project.accent}08` }}
               />
             ) : (
               <div
-                className="card-initials"
+                className={styles.initials}
                 style={{
                   color: project.logoColor,
                   borderColor: `${project.accent}44`,
@@ -78,34 +79,34 @@ export default function ProjectCard({ project, onClose, clickOrigin }: Props) {
               </div>
             )}
             <div>
-              <h2 className="card-title">{project.company}</h2>
-              <p className="card-subtitle">{project.subtitle}</p>
-              <p className="card-domains" style={{ color: project.accent }}>
+              <h2 className={styles.title}>{project.company}</h2>
+              <p className={styles.subtitle}>{project.subtitle}</p>
+              <p className={styles.domains} style={{ color: project.accent }}>
                 {project.domains.join(" · ")}
               </p>
             </div>
           </div>
 
-          <ul className="card-description">
+          <ul className={styles.description}>
             {project.description.map((point, i) => (
               <li key={i}>{point}</li>
             ))}
           </ul>
 
-          <div className="card-screens">
+          <div className={styles.screens}>
             {project.screens.map((screen, i) => (
               <figure
                 key={screen.label}
-                className="screen-thumb"
+                className={styles.screenThumb}
                 onClick={() => setLightboxIndex(i)}
               >
                 <img
                   src={screen.src}
                   alt={screen.label}
-                  className="screen-img"
+                  className={styles.screenImg}
                   loading="lazy"
                 />
-                <figcaption className="screen-label">{screen.label}</figcaption>
+                <figcaption className={styles.screenLabel}>{screen.label}</figcaption>
               </figure>
             ))}
           </div>
@@ -114,11 +115,11 @@ export default function ProjectCard({ project, onClose, clickOrigin }: Props) {
             const screen = project.screens[lightboxIndex];
             const total = project.screens.length;
             return createPortal(
-              <div className="lightbox" onClick={() => setLightboxIndex(null)}>
-                <CloseButton onClick={(e) => { e.stopPropagation(); setLightboxIndex(null); }} className="close-btn" />
+              <div className={styles.lightbox} onClick={() => setLightboxIndex(null)}>
+                <CloseButton onClick={(e) => { e.stopPropagation(); setLightboxIndex(null); }} className={styles.closeBtn} />
                 {total > 1 && (
                   <button
-                    className="lightbox-nav lightbox-nav--prev"
+                    className={`${styles.lightboxNav} ${styles.lightboxNavPrev}`}
                     onClick={(e) => { e.stopPropagation(); setLightboxIndex((lightboxIndex - 1 + total) % total); }}
                     aria-label="Previous"
                   >‹</button>
@@ -126,23 +127,23 @@ export default function ProjectCard({ project, onClose, clickOrigin }: Props) {
                 <img
                   src={screen.src}
                   alt={screen.label}
-                  className="lightbox-img"
+                  className={styles.lightboxImg}
                   onClick={(e) => e.stopPropagation()}
                 />
                 {total > 1 && (
                   <button
-                    className="lightbox-nav lightbox-nav--next"
+                    className={`${styles.lightboxNav} ${styles.lightboxNavNext}`}
                     onClick={(e) => { e.stopPropagation(); setLightboxIndex((lightboxIndex + 1) % total); }}
                     aria-label="Next"
                   >›</button>
                 )}
-                <p className="lightbox-label">{screen.label} <span className="lightbox-counter">{lightboxIndex + 1} / {total}</span></p>
+                <p className={styles.lightboxLabel}>{screen.label} <span className={styles.lightboxCounter}>{lightboxIndex + 1} / {total}</span></p>
               </div>,
               document.body,
             );
           })()}
 
-          <p className="card-tech">{project.tags.join(" · ")}</p>
+          <p className={styles.tech}>{project.tags.join(" · ")}</p>
         </div>
       </div>
     </div>

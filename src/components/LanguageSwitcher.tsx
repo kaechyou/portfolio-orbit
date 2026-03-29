@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import styles from './LanguageSwitcher.module.css';
 
 const languages = [
   { code: 'en' as const, label: 'EN' },
@@ -20,9 +21,9 @@ export default function LanguageSwitcher() {
   }
 
   return (
-    <div className="language-switcher" role="group" aria-label={t('common.languageGroup')}>
-      <div className="lang-track" data-active={active === 'ru' ? 'ru' : 'en'}>
-        <div className="lang-slider" aria-hidden />
+    <div className={styles.languageSwitcher} role="group" aria-label={t('common.languageGroup')}>
+      <div className={styles.langTrack} data-active={active === 'ru' ? 'ru' : 'en'}>
+        <div className={styles.langSlider} aria-hidden />
         {languages.map((lang) => {
           const isActive = active === lang.code;
 
@@ -30,7 +31,7 @@ export default function LanguageSwitcher() {
             <button
               key={lang.code}
               type="button"
-              className={`lang-option${isActive ? ' lang-option--active' : ''}`}
+              className={`${styles.langOption}${isActive ? ` ${styles.langOptionActive}` : ''}`}
               onClick={() => switchTo(lang.code)}
               aria-pressed={isActive}
               aria-label={lang.code === 'en' ? t('common.langEnglish') : t('common.langRussian')}

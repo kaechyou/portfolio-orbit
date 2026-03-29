@@ -11,6 +11,7 @@ import ControlsHint from "./components/ControlsHint";
 import { PerspectiveCamera } from "three";
 import { Project } from "./types";
 import ProjectCard from "./components/ProjectCard";
+import styles from "./App.module.css";
 
 function SceneReady({ onReady }: { onReady: () => void }) {
   const called = useRef(false);
@@ -63,34 +64,34 @@ export default function App() {
   }
 
   return (
-    <div className="app-root">
-      <header className="site-header">
-        <span className="site-name">
+    <div className={styles.appRoot}>
+      <header className={styles.siteHeader}>
+        <span className={styles.siteName}>
           {t('common.portfolio')}
         </span>
-        <nav className="site-nav">
+        <nav className={styles.siteNav}>
           <a href="#about">{t('nav.about')}</a>
           <a href="#projects">{t('nav.work')}</a>
           <a href="#contact">{t('nav.contact')}</a>
           <LanguageSwitcher />
-          <button className="btn-base btn-base--no-bg btn-base--burger burger-btn" onClick={() => setMenuOpen(true)} aria-label="Menu">
+          <button className={styles.burgerBtn} onClick={() => setMenuOpen(true)} aria-label="Menu">
             <span /><span /><span />
           </button>
         </nav>
       </header>
 
       {menuOpen && (
-        <div className="mobile-nav-overlay" onClick={() => setMenuOpen(false)}>
-          <CloseButton onClick={(e) => { e?.stopPropagation(); setMenuOpen(false); }} className="close-btn" ariaLabel="Close menu" />
+        <div className={styles.mobileNavOverlay} onClick={() => setMenuOpen(false)}>
+          <CloseButton onClick={(e) => { e?.stopPropagation(); setMenuOpen(false); }} className={styles.closeBtn} ariaLabel="Close menu" />
           <a href="#about" onClick={() => setMenuOpen(false)}>{t('nav.about')}</a>
           <a href="#projects" onClick={() => setMenuOpen(false)}>{t('nav.work')}</a>
           <a href="#contact" onClick={() => setMenuOpen(false)}>{t('nav.contact')}</a>
         </div>
       )}
 
-      {!ready && <div className="scene-loader">◆</div>}
+      {!ready && <div className={styles.sceneLoader}>◆</div>}
 
-      <div className={`canvas-wrapper${ready ? " ready" : ""}`}>
+      <div className={`${styles.canvasWrapper}${ready ? ` ${styles.ready}` : ''}`}>
         <Canvas
           camera={{ position: [0, 3, 9], fov: 48 }}
           gl={{ antialias: true, alpha: false }}
@@ -132,7 +133,7 @@ export default function App() {
 
         {!selectedProject && (
           <>
-            <HeroIntro />
+            <HeroIntro ready={ready} />
             <ControlsHint />
           </>
         )}
@@ -140,4 +141,3 @@ export default function App() {
     </div>
   );
 }
-

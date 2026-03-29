@@ -1,0 +1,23 @@
+.btn {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.9rem;
+  line-height: 1;
+  color: var(--text-muted);
+  background: color-mix(in srgb, var(--card-accent, var(--accent)) 5%, rgba(255, 255, 255, 0.04));
+  border: 1px solid color-mix(in srgb, var(--card-accent, var(--accent)) 12%, rgba(255, 255, 255, 0.06));
+  border-radius: 50%;
+  transition: background 0.15s, color 0.15s, border-color 0.15s, box-shadow 0.15s;
+
+  &:hover {
+    background: color-mix(in srgb, var(--card-accent, var(--accent)) 12%, rgba(255, 255, 255, 0.06));
+    color: var(--text);
+    border-color: color-mix(in srgb, var(--card-accent, var(--accent)) 25%, transparent);
+    box-shadow: 0 0 12px color-mix(in srgb, var(--card-accent, var(--accent)) 15%, transparent);
+  }
+}

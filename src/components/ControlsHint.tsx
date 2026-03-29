@@ -10,6 +10,7 @@ import {
   HandIcon,
   ChevronDownIcon,
 } from "./icons";
+import styles from "./ControlsHint.module.css";
 
 export default function ControlsHint() {
   const { t } = useTranslation();
@@ -28,96 +29,81 @@ export default function ControlsHint() {
   useEscapeKey(() => setExpanded(false), expanded);
 
   return (
-    <div className={`controls-hint ${expanded ? "expanded" : ""}`}>
+    <div className={styles.controlsHint}>
       <button
-        className="controls-hint__toggle"
+        className={styles.toggle}
         onClick={() => setExpanded(!expanded)}
         aria-label={t("controls.toggle")}
       >
-        <span className="controls-hint__icon">
+        <span className={styles.icon}>
           {isMobile ? <SmartphoneIcon /> : <MousePointerIcon />}
         </span>
-        <span className="controls-hint__title">{t("controls.title")}</span>
-        <span className={`controls-hint__chevron ${expanded ? "rotated" : ""}`}>
+        <span>{t("controls.title")}</span>
+        <span className={`${styles.chevron}${expanded ? ` ${styles.rotated}` : ''}`}>
           <ChevronDownIcon rotated={expanded} />
         </span>
       </button>
 
       {expanded && (
-        <div className="controls-hint__panel">
-          {/* mouse */}
-          <div className="controls-hint__section">
-            <div className="controls-hint__section-header">
+        <div className={styles.panel}>
+          <div className={styles.section}>
+            <div className={styles.sectionHeader}>
               <MousePointerIcon />
               <span>{t("controls.mouse")}</span>
             </div>
-            <div className="controls-hint__items">
-              <div className="controls-hint__item">
-                <span className="controls-hint__item-icon"><MoveIcon /></span>
-                <span className="controls-hint__item-text">
-                  {t("controls.rotate")}
-                </span>
+            <div className={styles.items}>
+              <div className={styles.item}>
+                <span className={styles.itemIcon}><MoveIcon /></span>
+                <span className={styles.itemText}>{t("controls.rotate")}</span>
               </div>
-              <div className="controls-hint__item">
-                <span className="controls-hint__item-icon"><ZoomIcon /></span>
-                <span className="controls-hint__item-text">
-                  {t("controls.zoom")}
-                </span>
+              <div className={styles.item}>
+                <span className={styles.itemIcon}><ZoomIcon /></span>
+                <span className={styles.itemText}>{t("controls.zoom")}</span>
               </div>
             </div>
           </div>
 
-          {/* character */}
-          <div className="controls-hint__section">
-            <div className="controls-hint__section-header">
+          <div className={styles.section}>
+            <div className={styles.sectionHeader}>
               <KeyboardIcon />
               <span>{t("controls.character")}</span>
             </div>
-            <div className="controls-hint__items">
-              <div className="controls-hint__item">
-                <div className="controls-hint__keys">
+            <div className={styles.items}>
+              <div className={styles.item}>
+                <div className={styles.keys}>
                   <kbd>W</kbd>
                   <kbd>A</kbd>
                   <kbd>S</kbd>
                   <kbd>D</kbd>
                 </div>
-                <span className="controls-hint__item-text">
-                  {t("controls.move")}
-                </span>
+                <span className={styles.itemText}>{t("controls.move")}</span>
               </div>
-              <div className="controls-hint__item">
-                <div className="controls-hint__keys">
+              <div className={styles.item}>
+                <div className={styles.keys}>
                   <kbd>Space</kbd>
                 </div>
-                <span className="controls-hint__item-text">
-                  {t("controls.jump")}
-                </span>
+                <span className={styles.itemText}>{t("controls.jump")}</span>
               </div>
             </div>
           </div>
 
-          {/* touch */}
-          <div className="controls-hint__section">
-            <div className="controls-hint__section-header">
+          <div className={styles.section}>
+            <div className={styles.sectionHeader}>
               <SmartphoneIcon />
               <span>{t("controls.touch")}</span>
             </div>
-            <div className="controls-hint__items">
-              <div className="controls-hint__item">
-                <span className="controls-hint__item-icon"><HandIcon /></span>
-                <span className="controls-hint__item-text">
-                  {t("controls.dragRotate")}
-                </span>
+            <div className={styles.items}>
+              <div className={styles.item}>
+                <span className={styles.itemIcon}><HandIcon /></span>
+                <span className={styles.itemText}>{t("controls.dragRotate")}</span>
               </div>
-              <div className="controls-hint__item">
-                <div className="controls-hint__pinch">
-                  <span className="controls-hint__pinch-dot" />
-                  <span className="controls-hint__pinch-line" />
-                  <span className="controls-hint__pinch-dot" />
+              <div className={styles.item}>
+                <div className={styles.pinch}>
+                  <span className={styles.pinchDot} />
+                  <span className={styles.pinchLine} />
+                  <span className={styles.pinchDot} />
                 </div>
-                <span className="controls-hint__item-text">
-                  {t("controls.pinchZoom")}
-                </span>
+                <span className={styles.itemText}>{t("controls.pinchZoom")}</span>
               </div>
             </div>
           </div>
@@ -125,10 +111,8 @@ export default function ControlsHint() {
       )}
 
       {!expanded && (
-        <div className="controls-hint__collapsed">
-          <span className="controls-hint__collapsed-text">
-            {isMobile ? t("controls.hintTouch") : t("controls.hintMouse")}
-          </span>
+        <div className={styles.collapsed}>
+          {isMobile ? t("controls.hintTouch") : t("controls.hintMouse")}
         </div>
       )}
     </div>
