@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import { CloseButton } from './CloseButton';
 import { Project } from "../types";
 
 interface Props {
@@ -60,9 +61,7 @@ export default function ProjectCard({ project, onClose, clickOrigin }: Props) {
           style={{ background: `linear-gradient(90deg, ${project.accent}, ${project.accent}88)` }}
         />
 
-        <button className="close-btn" onClick={handleClose} aria-label="Close">
-          ✕
-        </button>
+        <CloseButton onClick={() => handleClose()} className="close-btn" />
 
         <div className="card-body">
           <div className="card-header">
@@ -123,9 +122,7 @@ export default function ProjectCard({ project, onClose, clickOrigin }: Props) {
             const total = project.screens.length;
             return createPortal(
               <div className="lightbox" onClick={() => setLightboxIndex(null)}>
-                <button className="lightbox-close" onClick={(e) => { e.stopPropagation(); setLightboxIndex(null); }} aria-label="Close">
-                  ✕
-                </button>
+                <CloseButton onClick={(e) => { e.stopPropagation(); setLightboxIndex(null); }} className="close-btn" />
                 {total > 1 && (
                   <button
                     className="lightbox-nav lightbox-nav--prev"

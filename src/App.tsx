@@ -4,7 +4,8 @@ import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { EffectComposer, Bloom, Vignette } from "@react-three/postprocessing";
 import Scene from "./components/Scene";
-import LanguageSwitcher from "./components/LanguageSwitcher";
+import LanguageSwitcher from './components/LanguageSwitcher';
+import { CloseButton } from './components/CloseButton';
 import HeroIntro from "./components/HeroIntro";
 import { PerspectiveCamera } from "three";
 import { Project } from "./types";
@@ -71,7 +72,7 @@ export default function App() {
           <a href="#projects">{t('nav.work')}</a>
           <a href="#contact">{t('nav.contact')}</a>
           <LanguageSwitcher />
-          <button className="burger-btn" onClick={() => setMenuOpen(true)} aria-label="Menu">
+          <button className="btn-base btn-base--no-bg btn-base--burger burger-btn" onClick={() => setMenuOpen(true)} aria-label="Menu">
             <span /><span /><span />
           </button>
         </nav>
@@ -79,9 +80,7 @@ export default function App() {
 
       {menuOpen && (
         <div className="mobile-nav-overlay" onClick={() => setMenuOpen(false)}>
-          <button className="mobile-nav-close" onClick={() => setMenuOpen(false)} aria-label="Close menu">
-            <span /><span />
-          </button>
+          <CloseButton onClick={(e) => { e?.stopPropagation(); setMenuOpen(false); }} className="close-btn" ariaLabel="Close menu" />
           <a href="#about" onClick={() => setMenuOpen(false)}>{t('nav.about')}</a>
           <a href="#projects" onClick={() => setMenuOpen(false)}>{t('nav.work')}</a>
           <a href="#contact" onClick={() => setMenuOpen(false)}>{t('nav.contact')}</a>
