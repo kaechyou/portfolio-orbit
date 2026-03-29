@@ -44,8 +44,10 @@ body,
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 22px 40px;
+  padding: 16px 40px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  background: rgba(5, 8, 15, 0.6);
+  backdrop-filter: blur(12px);
 }
 
 .site-name {
@@ -53,7 +55,7 @@ body,
   align-items: center;
   gap: 8px;
   font-size: 0.95rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--text);
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -85,6 +87,7 @@ body,
 }
 
 .site-nav a {
+  position: relative;
   font-size: 0.78rem;
   font-weight: 500;
   color: var(--text-muted);
@@ -93,8 +96,26 @@ body,
   text-transform: uppercase;
   transition: color 0.3s;
 
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+  }
+
   &:hover {
     color: var(--text);
+
+    &::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
   }
 }
 
@@ -151,7 +172,6 @@ body,
   position: absolute;
   bottom: 28px;
   left: 50%;
-  transform: translateX(-50%);
   font-size: 0.72rem;
   font-weight: 500;
   letter-spacing: 0.1em;
@@ -164,6 +184,21 @@ body,
   pointer-events: none;
   white-space: nowrap;
   border: 1px solid rgba(255, 255, 255, 0.07);
+  animation: hintFloat 3s ease-in-out infinite;
+}
+
+@keyframes hintFloat {
+
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-4px);
+  }
 }
 
 .overlay {
@@ -322,7 +357,7 @@ body,
 
 .hero-intro {
   position: absolute;
-  left: 56px;
+  left: 40px;
   top: 120px;
   z-index: 5;
   pointer-events: none;
@@ -384,7 +419,7 @@ body,
 
 .hero-bio {
   font-size: 1rem;
-  color: var(--text-muted);
+  color: #8a9bbd;
   max-width: 600px;
   line-height: 1.65;
   letter-spacing: 0.6px;
@@ -408,9 +443,126 @@ body,
 .hero-social-link:hover {
   color: var(--accent);
   transform: translateY(-2px);
+  filter: drop-shadow(0 0 8px rgba(0, 212, 255, 0.5));
+}
+
+.burger-btn {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.burger-btn span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: var(--text-muted);
+  border-radius: 1px;
+  transition: background 0.2s;
+}
+
+.burger-btn:hover span {
+  background: var(--text);
+}
+
+.mobile-nav-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(5, 8, 15, 0.95);
+  backdrop-filter: blur(20px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  animation: overlayIn 0.22s ease;
+}
+
+.mobile-nav-overlay a {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color 0.3s;
+  opacity: 0;
+  animation: mobileNavIn 0.4s ease forwards;
+}
+
+.mobile-nav-overlay a:nth-child(2) {
+  animation-delay: 0.06s;
+}
+
+.mobile-nav-overlay a:nth-child(3) {
+  animation-delay: 0.12s;
+}
+
+.mobile-nav-overlay a:nth-child(4) {
+  animation-delay: 0.18s;
+}
+
+.mobile-nav-overlay a:hover {
+  color: var(--accent);
+}
+
+.mobile-nav-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.mobile-nav-close span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 2px;
+  background: var(--text-muted);
+  border-radius: 1px;
+  transition: background 0.2s;
+}
+
+.mobile-nav-close span:first-child {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.mobile-nav-close span:last-child {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.mobile-nav-close:hover span {
+  background: var(--text);
+}
+
+@keyframes mobileNavIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (max-width: 600px) {
+  .burger-btn {
+    display: flex;
+  }
+
   .site-header {
     padding: 10px 16px;
   }
@@ -482,5 +634,14 @@ body,
 
   .lang-track[data-active="ru"] .lang-slider {
     transition: none;
+  }
+
+  .hint-label {
+    animation: none;
+  }
+
+  .mobile-nav-overlay a {
+    animation: none;
+    opacity: 1;
   }
 }

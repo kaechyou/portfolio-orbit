@@ -42,6 +42,7 @@ function ResponsiveFov() {
 export default function App() {
   const { t } = useTranslation();
   const [ready, setReady] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [targetPosition, setTargetPosition] = useState<[number, number, number] | null>(null);
 
@@ -61,8 +62,22 @@ export default function App() {
           <a href="#projects">{t('nav.work')}</a>
           <a href="#contact">{t('nav.contact')}</a>
           <LanguageSwitcher />
+          <button className="burger-btn" onClick={() => setMenuOpen(true)} aria-label="Menu">
+            <span /><span /><span />
+          </button>
         </nav>
       </header>
+
+      {menuOpen && (
+        <div className="mobile-nav-overlay" onClick={() => setMenuOpen(false)}>
+          <button className="mobile-nav-close" onClick={() => setMenuOpen(false)} aria-label="Close menu">
+            <span /><span />
+          </button>
+          <a href="#about" onClick={() => setMenuOpen(false)}>{t('nav.about')}</a>
+          <a href="#projects" onClick={() => setMenuOpen(false)}>{t('nav.work')}</a>
+          <a href="#contact" onClick={() => setMenuOpen(false)}>{t('nav.contact')}</a>
+        </div>
+      )}
 
       {!ready && <div className="scene-loader">◆</div>}
 
