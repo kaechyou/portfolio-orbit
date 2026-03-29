@@ -1,11 +1,17 @@
 {
+  "hero": {
+    "greeting": "Hi, I'm",
+    "name": "Ekaterina",
+    "title": "Full-Stack / Front-End Developer",
+    "bio": "Building scalable web apps and AI-powered platforms.\nPassionate about clean architecture and great UX."
+  },
   "nav": {
     "about": "About",
     "work": "Work",
     "contact": "Contact"
   },
   "common": {
-    "portfolio": "Portfolio",
+    "portfolio": "Ekaterina Gnedenko",
     "hint": "Click any project to explore",
     "languageGroup": "Interface language",
     "langEnglish": "English",
@@ -31,7 +37,7 @@
       }
     },
     "onetwtrip-whitelabel": {
-      "title": "OneTwoTrip White-Label",
+      "title": "OneTwoTrip",
       "description": "B2B white-label engine for one of Russia's leading travel platforms. Shipped 11 white-label solutions and maintained 20+ active integrations for major banks and airlines — Raiffeisen, Tinkoff, VTB, Gazprombank, Sber, Alfabank, Aeroflot, S7, Red Wings. Embedded search, booking, and payment flows into client domains with full brand customization. Built and maintained a shared UI kit of 11 reusable components: Storybook documentation, versioning, cross-browser and cross-brand consistency. Implemented 6 major loyalty program integrations into booking and payment flows with real-time sync via Socket.io. Led legacy JavaScript to TypeScript migration with full test coverage. Tens of thousands of monthly users through white-label flows.",
       "screens": {
         "booking": "Booking Flow",
@@ -40,8 +46,8 @@
       }
     },
     "bitkov-exchange": {
-      "title": "Bitkov Exchange",
-      "description": "Centralized cryptocurrency exchange platform for offline Bitcoin transactions. Full-stack development: client interface (React + TypeScript) and backend services (Node.js, Express, PostgreSQL). User dashboard with order booking, deal and rate tracking, referral program. Integrated external exchange API (Garantex) for real-time rate data. Built a Telegram bot (Node.js + Telegraf) for order management. Achieved 90–95% test coverage on critical user flows with Jest.",
+      "title": "Bitkov.net - Cryptocurrency Exchange",
+      "description": "Centralized cryptocurrency exchange platform. Full-stack development: client interface (React + TypeScript) and backend services (Node.js, Express, PostgreSQL). User dashboard with order booking, deal and rate tracking, referral program. Integrated external exchange API (Garantex) for real-time rate data. Built a Telegram bot (Node.js + Telegraf) for order management. Achieved 90–95% test coverage on critical user flows with Jest.",
       "screens": {
         "exchange": "Exchange",
         "reviews": "Reviews"

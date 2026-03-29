@@ -1,14 +1,47 @@
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { EffectComposer, Bloom, Vignette } from "@react-three/postprocessing";
 import Scene from "./components/Scene";
 import LanguageSwitcher from "./components/LanguageSwitcher";
+import HeroIntro from "./components/HeroIntro";
+import { PerspectiveCamera } from "three";
 import { Project } from "./types";
+
+function SceneReady({ onReady }: { onReady: () => void }) {
+  const called = useRef(false);
+  const frame = useRef(0);
+
+  useFrame(() => {
+    if (called.current) return;
+    frame.current++;
+    if (frame.current >= 3) {
+      called.current = true;
+      onReady();
+    }
+  });
+
+  return null;
+}
+
+function ResponsiveFov() {
+  const camera = useThree((s) => s.camera);
+  const width = useThree((s) => s.size.width);
+
+  useEffect(() => {
+    if (camera instanceof PerspectiveCamera) {
+      camera.fov = width < 768 ? 65 : 48;
+      camera.updateProjectionMatrix();
+    }
+  }, [camera, width]);
+
+  return null;
+}
 
 export default function App() {
   const { t } = useTranslation();
+  const [ready, setReady] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [targetPosition, setTargetPosition] = useState<[number, number, number] | null>(null);
 
@@ -31,7 +64,9 @@ export default function App() {
         </nav>
       </header>
 
-      <div className="canvas-wrapper">
+      {!ready && <div className="scene-loader">◆</div>}
+
+      <div className={`canvas-wrapper${ready ? " ready" : ""}`}>
         <Canvas
           camera={{ position: [0, 3, 9], fov: 48 }}
           gl={{ antialias: true, alpha: false }}
@@ -42,6 +77,8 @@ export default function App() {
 
           <Suspense fallback={null}>
             <Scene onSelect={handleSelect} targetPosition={targetPosition} />
+            <SceneReady onReady={() => setReady(true)} />
+            <ResponsiveFov />
             <EffectComposer>
               <Bloom
                 intensity={0.9}
@@ -66,7 +103,10 @@ export default function App() {
         </Canvas>
 
         {!selectedProject && (
-          <div className="hint-label">{t('common.hint')}</div>
+          <>
+            <HeroIntro />
+            <div className="hint-label">{t('common.hint')}</div>
+          </>
         )}
       </div>
     </div>
