@@ -298,6 +298,7 @@ body,
   line-height: 1.65;
   letter-spacing: 0.6px;
   white-space: pre-line;
+  font-weight: 400;
 }
 
 .hero-socials {

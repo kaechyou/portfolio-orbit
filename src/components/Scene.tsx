@@ -3,6 +3,7 @@ import FloatingObject from "./FloatingObject";
 import { useProjects } from "../data/useProjects";
 import { Project } from "../types";
 import { RisingParticles } from "./RisingParticles";
+import Character from "./Character";
 
 interface Props {
   onSelect: (project: Project, position: [number, number, number]) => void;
@@ -33,6 +34,8 @@ export default function Scene({ onSelect, targetPosition }: Props) {
       <pointLight position={[-5, 1.5, 2]} intensity={1.6} color="#7c3aed" />
       <pointLight position={[0, -1, 0]} intensity={0.5} color="#001a33" />
       <ambientLight intensity={0.55} color="#8ab4ff" />
+
+      <Character />
 
       {projects.map((project, i) => (
         <FloatingObject
