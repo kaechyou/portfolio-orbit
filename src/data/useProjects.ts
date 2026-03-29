@@ -9,7 +9,7 @@ export function useProjects(): Project[] {
     ...p,
     company: t(`projects.${p.id}.company`),
     subtitle: t(`projects.${p.id}.subtitle`),
-    description: t(`projects.${p.id}.description`),
+    description: t(`projects.${p.id}.description`, { returnObjects: true }) as string[],
     screens: p.screens.map((s) => ({
       ...s,
       label: t(`projects.${p.id}.screens.${s.id}`),

@@ -24,6 +24,7 @@ body,
   width: 100%;
   background: var(--bg);
   color: var(--text);
+  letter-spacing: 0.6px;
 }
 
 .app-root {
@@ -57,7 +58,6 @@ body,
   font-size: 0.95rem;
   font-weight: 500;
   color: var(--text);
-  letter-spacing: 0.1em;
   text-transform: uppercase;
   transition: color 0.3s;
 
@@ -91,7 +91,6 @@ body,
     font-weight: 500;
     color: var(--text-muted);
     text-decoration: none;
-    letter-spacing: 0.08em;
     text-transform: uppercase;
     transition: color 0.3s;
 
@@ -174,7 +173,6 @@ body,
   font-family: inherit;
   font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--text-muted);
   background: transparent;
@@ -272,7 +270,6 @@ body,
   font-size: 1rem;
   font-weight: 400;
   color: var(--text-muted);
-  letter-spacing: 0.3px;
 }
 
 .hero-name {
@@ -281,7 +278,6 @@ body,
   font-weight: 700;
   color: var(--text);
   line-height: 1;
-  letter-spacing: -1px;
   text-shadow: 0 0 60px rgba(0, 212, 255, 0.1);
 }
 
@@ -289,7 +285,6 @@ body,
   font-size: 1.15rem;
   font-weight: 500;
   color: var(--accent);
-  letter-spacing: 0.6px;
 }
 
 .hero-bio {
@@ -297,7 +292,6 @@ body,
   color: var(--text-muted);
   max-width: 600px;
   line-height: 1.65;
-  letter-spacing: 0.6px;
   white-space: pre-line;
   font-weight: 400;
 }
@@ -378,7 +372,6 @@ body,
   margin-top: 8px;
   font-size: 0.7rem;
   font-weight: 600;
-  letter-spacing: 0.06em;
   text-transform: uppercase;
   opacity: 0.85;
 }
@@ -442,22 +435,38 @@ body,
   justify-content: center;
   font-size: 1rem;
   font-weight: 800;
-  letter-spacing: -0.03em;
 }
 
 .card-title {
   font-size: 1.22rem;
   font-weight: 700;
   color: var(--text);
-  letter-spacing: -0.02em;
   line-height: 1.2;
 }
 
 .card-description {
   font-size: 0.875rem;
-  line-height: 1.7;
+  line-height: 1.6;
   color: var(--text-muted);
   margin-bottom: 20px;
+  padding-left: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.card-description li {
+  padding-left: 1.1rem;
+  position: relative;
+}
+
+.card-description li::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  color: var(--card-accent);
+  opacity: 0.7;
 }
 
 .card-screens {
@@ -495,7 +504,6 @@ body,
   text-align: center;
   font-size: 0.65rem;
   font-weight: 500;
-  letter-spacing: 0.04em;
   color: var(--text-muted);
   margin-top: 8px;
 }
@@ -529,7 +537,6 @@ body,
   left: 50%;
   transform: translateX(-50%);
   font-size: 0.72rem;
-  letter-spacing: 0.06em;
   color: var(--text-muted);
   margin: 0;
   white-space: nowrap;
@@ -604,8 +611,6 @@ body,
   font-size: 0.75rem;
   line-height: 1.8;
   color: var(--text-muted);
-  opacity: 0.6;
-  letter-spacing: 0.01em;
 }
 
 .hint-label {
@@ -614,7 +619,6 @@ body,
   left: 50%;
   font-size: 0.72rem;
   font-weight: 500;
-  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--text-muted);
   background: rgba(5, 8, 20, 0.7);
@@ -668,7 +672,6 @@ body,
     font-weight: 500;
     color: var(--text-muted);
     text-decoration: none;
-    letter-spacing: 0.1em;
     text-transform: uppercase;
     transition: color 0.3s;
     opacity: 0;
@@ -876,7 +879,6 @@ body,
 
   .hero-name {
     font-size: 2.6rem;
-    letter-spacing: -0.5px;
   }
 
   .hero-role {

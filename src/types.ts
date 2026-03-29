@@ -8,7 +8,7 @@ export interface Project {
   id: string;
   company: string;
   subtitle: string;
-  description: string;
+  description: string[];
   domains: string[];
   tags: string[];
   accent: string;

@@ -30,6 +30,16 @@ export default function ProjectCard({ project, onClose, clickOrigin }: Props) {
     return () => window.removeEventListener("keydown", onKey);
   }, [lightboxIndex, project.screens.length]);
 
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && lightboxIndex === null) {
+        handleClose();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [lightboxIndex, handleClose]);
+
   return (
     <div
       className={`overlay${closing ? " overlay--closing" : ""}`}
@@ -84,7 +94,11 @@ export default function ProjectCard({ project, onClose, clickOrigin }: Props) {
             </div>
           </div>
 
-          <p className="card-description">{project.description}</p>
+          <ul className="card-description">
+            {project.description.map((point, i) => (
+              <li key={i}>{point}</li>
+            ))}
+          </ul>
 
           <div className="card-screens">
             {project.screens.map((screen, i) => (
