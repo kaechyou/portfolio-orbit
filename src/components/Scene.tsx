@@ -2,6 +2,7 @@ import { Sparkles, Grid } from "@react-three/drei";
 import FloatingObject from "./FloatingObject";
 import { projects } from "../data/projects";
 import { Project } from "../types";
+import { RisingParticles, WarmParticles } from "./Particles";
 
 interface Props {
   onSelect: (project: Project, position: [number, number, number]) => void;
@@ -65,6 +66,9 @@ export default function Scene({ onSelect, targetPosition }: Props) {
           opacity={0.95}
         />
       </mesh>
+
+      <RisingParticles />
+      <WarmParticles />
 
       <Sparkles
         count={50}
