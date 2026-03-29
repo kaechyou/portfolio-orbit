@@ -112,12 +112,6 @@ export default function CoffeeTable() {
             <meshStandardMaterial color="#d4ccc4" roughness={0.55} metalness={0.0} />
           </mesh>
         </group>
-
-        {/* shadow */}
-        <mesh position={[0, 0.001, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-          <planeGeometry args={[1.1, 0.65]} />
-          <meshStandardMaterial color="#000010" transparent opacity={0.18} roughness={1} />
-        </mesh>
       </group>
     </Float>
   );

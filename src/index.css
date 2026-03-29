@@ -530,12 +530,6 @@ body,
   transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
 }
 
-.screen-thumb:hover .screen-img {
-  transform: translateY(-3px);
-  border-color: color-mix(in srgb, var(--card-accent, #00d4ff) 30%, transparent);
-  box-shadow: 0 8px 28px color-mix(in srgb, var(--card-accent, #00d4ff) 15%, transparent);
-}
-
 .screen-label {
   display: block;
   text-align: center;

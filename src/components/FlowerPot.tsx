@@ -88,12 +88,6 @@ export default function FlowerPot() {
             </mesh>
           );
         })}
-
-        {/* shadow */}
-        <mesh position={[0, -0.145, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-          <circleGeometry args={[0.28, 24]} />
-          <meshStandardMaterial color="#000010" transparent opacity={0.22} roughness={1} />
-        </mesh>
       </group>
     </Float>
   );

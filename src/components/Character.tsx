@@ -4,6 +4,8 @@ import { Group, MathUtils, Vector3 } from "three";
 
 const SPEED = 3;
 const BOUNDS = 8;
+const JUMP_FORCE = 8;
+const GRAVITY = 20;
 
 export default function Character() {
   const groupRef = useRef<Group>(null);
@@ -15,9 +17,17 @@ export default function Character() {
   const walkTime = useRef(0);
   const camForward = useRef(new Vector3());
   const camRight = useRef(new Vector3());
+  const velocityY = useRef(0);
+  const isGrounded = useRef(true);
 
   useEffect(() => {
-    const onDown = (e: KeyboardEvent) => { keys.current[e.key] = true; };
+    const onDown = (e: KeyboardEvent) => {
+      keys.current[e.key] = true;
+      if (e.key === " " && isGrounded.current) {
+        velocityY.current = JUMP_FORCE;
+        isGrounded.current = false;
+      }
+    };
     const onUp = (e: KeyboardEvent) => { keys.current[e.key] = false; };
     window.addEventListener("keydown", onDown);
     window.addEventListener("keyup", onUp);
@@ -45,6 +55,17 @@ export default function Character() {
 
     const moving = moveX !== 0 || moveZ !== 0;
 
+    if (!isGrounded.current) {
+      velocityY.current -= GRAVITY * delta;
+      groupRef.current.position.y += velocityY.current * delta;
+
+      if (groupRef.current.position.y <= 0.1) {
+        groupRef.current.position.y = 0.1;
+        velocityY.current = 0;
+        isGrounded.current = true;
+      }
+    }
+
     if (moving) {
       const len = Math.sqrt(moveX * moveX + moveZ * moveZ);
       moveX /= len;
@@ -58,7 +79,9 @@ export default function Character() {
       facingAngle.current = Math.atan2(moveX, moveZ);
     }
 
-    groupRef.current.position.y = Math.sin(state.clock.elapsedTime * 0.9) * 0.05;
+    if (isGrounded.current) {
+      groupRef.current.position.y = 0.1 + Math.sin(state.clock.elapsedTime * 0.9) * 0.05;
+    }
 
     if (moving) {
       groupRef.current.rotation.y = MathUtils.lerp(
@@ -158,12 +181,12 @@ export default function Character() {
       </mesh>
 
       {/* eyes */}
-      <mesh position={[-0.1, 0.842, 0.29]}>
-        <sphereGeometry args={[0.015, 16, 16]} />
+      <mesh position={[-0.1, 0.842, 0.28]}>
+        <sphereGeometry args={[0.018, 16, 16]} />
         <meshStandardMaterial color="#4a2c1a" roughness={0.3} />
       </mesh>
-      <mesh position={[0.1, 0.842, 0.29]}>
-        <sphereGeometry args={[0.015, 16, 16]} />
+      <mesh position={[0.1, 0.842, 0.28]}>
+        <sphereGeometry args={[0.018, 16, 16]} />
         <meshStandardMaterial color="#4a2c1a" roughness={0.3} />
       </mesh>
 
@@ -287,7 +310,7 @@ export default function Character() {
       </group>
 
       {/* legs + sneakers */}
-      <group ref={leftLegRef} position={[-0.15, -0.5, 0]}>
+      <group ref={leftLegRef} position={[-0.15, -0.7, 0]}>
         <mesh position={[0, -0.14, 0]} castShadow>
           <capsuleGeometry args={[0.11, 0.28, 6, 16]} />
           <meshStandardMaterial color="#4a0c2e" roughness={0.85} />
@@ -297,7 +320,7 @@ export default function Character() {
           <meshStandardMaterial color="#e8e8f0" roughness={0.7} />
         </mesh>
       </group>
-      <group ref={rightLegRef} position={[0.15, -0.5, 0]}>
+      <group ref={rightLegRef} position={[0.15, -0.7, 0]}>
         <mesh position={[0, -0.14, 0]} castShadow>
           <capsuleGeometry args={[0.11, 0.28, 6, 16]} />
           <meshStandardMaterial color="#4a0c2e" roughness={0.85} />
@@ -307,12 +330,6 @@ export default function Character() {
           <meshStandardMaterial color="#e8e8f0" roughness={0.7} />
         </mesh>
       </group>
-
-      {/* ground shadow */}
-      <mesh position={[0, -1.04, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-        <circleGeometry args={[0.5, 32]} />
-        <meshStandardMaterial color="#000010" transparent opacity={0.28} roughness={1} />
-      </mesh>
     </group>
   );
 }
