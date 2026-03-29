@@ -18,7 +18,7 @@ export default function FloatingObject({ project, index, total, onSelect }: Prop
   const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
-    if (!project.logoUrl) {
+    if (!project.logo) {
       setImageLoaded(false);
       return;
     }
@@ -26,8 +26,8 @@ export default function FloatingObject({ project, index, total, onSelect }: Prop
     const img = document.createElement('img');
     img.onload = () => setImageLoaded(true);
     img.onerror = () => setImageLoaded(false);
-    img.src = project.logoUrl;
-  }, [project.logoUrl]);
+    img.src = project.logo;
+  }, [project.logo]);
 
   const angle = (index / total) * Math.PI * 2;
   const radius = 3.2;
@@ -113,9 +113,9 @@ export default function FloatingObject({ project, index, total, onSelect }: Prop
           </mesh>
 
           {/* logo */}
-          {imageLoaded && project.logoUrl ? (
+          {imageLoaded && project.logo ? (
             <Image
-              url={project.logoUrl}
+              url={project.logo}
               position={[-0.4, 0.1, 0.035]}
               scale={[0.2, 0.2]}
               transparent

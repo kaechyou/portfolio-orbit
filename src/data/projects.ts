@@ -13,7 +13,7 @@ export const projects: Project[] = [
     accent: "#00d4ff",
     initials: "IGP",
     logoColor: "#00d4ff",
-    logoUrl: "https://storage.yandexcloud.net/katyaka/portfolio/icon.svg",
+    logo: "/logos/inzhgidroproekt-logo.svg",
     screens: [
       {
         label: { ru: "RAG-чат", en: "RAG Chat" },
@@ -48,7 +48,7 @@ export const projects: Project[] = [
     accent: "#ec4899",
     initials: "EVM",
     logoColor: "#f472b6",
-    logoUrl: "https://storage.yandexcloud.net/katyaka/portfolio/icon.svg",
+    logo: "/logos/evm-logo.svg",
     screens: [
       {
         label: { ru: "Оценка 360°", en: "Assessment 360°" },
@@ -83,7 +83,7 @@ export const projects: Project[] = [
     accent: "#f59e0b",
     initials: "OTT",
     logoColor: "#fbbf24",
-    logoUrl: "https://storage.yandexcloud.net/katyaka/portfolio/icon.svg",
+    logo: "/logos/ott-logo.svg",
     screens: [
       {
         label: { ru: "Флоу бронирования", en: "Booking Flow" },
@@ -114,7 +114,6 @@ export const projects: Project[] = [
     accent: "#7c3aed",
     initials: "BTE",
     logoColor: "#a78bfa",
-    logoUrl: "https://storage.yandexcloud.net/katyaka/portfolio/icon.svg",
     screens: [
       {
         label: { ru: "Обмен", en: "Exchange" },

@@ -16,6 +16,6 @@ export interface Project {
   accent: string;
   initials: string;
   logoColor: string;
-  logoUrl: string;
+  logo?: string;
   screens: ProjectScreen[];
 }
