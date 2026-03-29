@@ -1,8 +1,8 @@
-import { Sparkles, Grid } from "@react-three/drei";
+import { Grid } from "@react-three/drei";
 import FloatingObject from "./FloatingObject";
 import { useProjects } from "../data/useProjects";
 import { Project } from "../types";
-import { RisingParticles, WarmParticles } from "./Particles";
+import { RisingParticles } from "./RisingParticles";
 
 interface Props {
   onSelect: (project: Project, position: [number, number, number]) => void;
@@ -70,18 +70,7 @@ export default function Scene({ onSelect, targetPosition }: Props) {
       </mesh>
 
       <RisingParticles />
-      <WarmParticles />
 
-      <Sparkles
-        count={50}
-        scale={[3, 4, 3]}
-        position={[0, 0.5, 0]}
-        size={0.6}
-        speed={0.3}
-        opacity={0.6}
-        color="#ffeac0"
-        noise={1}
-      />
     </>
   );
 }
