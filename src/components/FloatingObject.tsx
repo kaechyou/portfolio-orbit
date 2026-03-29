@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
-import { Billboard, Float, Text, Image } from "@react-three/drei";
+import { Billboard, Float, Text, Image, RoundedBox } from "@react-three/drei";
 import { Mesh, Color } from "three";
 import { Project } from "../types";
 
@@ -89,27 +89,27 @@ export default function FloatingObject({ project, index, total, onSelect }: Prop
             document.body.style.cursor = "auto";
           }}
         >
-          <mesh ref={cardRef} castShadow>
-            <boxGeometry args={[1.6, 1.05, 0.055]} />
-            <meshStandardMaterial
-              color="#1a2744"
-              roughness={0.15}
-              metalness={0.5}
+          <RoundedBox ref={cardRef} args={[1.6, 1.05, 0.055]} radius={0.075} smoothness={4} castShadow>
+            <meshPhysicalMaterial
+              color="#0c1830"
+              roughness={0.06}
+              metalness={0.25}
+              transparent
+              opacity={0.72}
               emissive={accentColor}
-              emissiveIntensity={0.25}
+              emissiveIntensity={0.22}
             />
-          </mesh>
+          </RoundedBox>
 
           {/* top accent bar */}
-          <mesh position={[0, 0.47, 0.03]}>
-            <boxGeometry args={[1.6, 0.075, 0.007]} />
+          <RoundedBox args={[1.53, 0.075, 0.007]} radius={0.03} smoothness={3} position={[0, 0.47, 0.03]}>
             <meshStandardMaterial
               color={project.accent}
               emissive={project.accent}
               emissiveIntensity={1.8}
               roughness={0.05}
             />
-          </mesh>
+          </RoundedBox>
 
           {/* logo */}
           {imageLoaded && project.logo ? (
@@ -202,8 +202,7 @@ export default function FloatingObject({ project, index, total, onSelect }: Prop
           </Text>
 
           {/* hover glow border */}
-          <mesh ref={glowRef} position={[0, 0, -0.005]}>
-            <boxGeometry args={[1.68, 1.13, 0.04]} />
+          <RoundedBox ref={glowRef} args={[1.68, 1.13, 0.04]} radius={0.085} smoothness={4} position={[0, 0, -0.005]}>
             <meshStandardMaterial
               color={project.accent}
               emissive={project.accent}
@@ -212,7 +211,7 @@ export default function FloatingObject({ project, index, total, onSelect }: Prop
               opacity={0.0}
               roughness={0.1}
             />
-          </mesh>
+          </RoundedBox>
         </group>
       </Billboard>
     </Float>
