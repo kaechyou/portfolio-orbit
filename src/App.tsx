@@ -46,15 +46,18 @@ export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [targetPosition, setTargetPosition] = useState<[number, number, number] | null>(null);
+  const [clickOrigin, setClickOrigin] = useState<{ x: number; y: number } | null>(null);
 
-  function handleSelect(project: Project, position: [number, number, number]) {
+  function handleSelect(project: Project, position: [number, number, number], origin: { x: number; y: number }) {
     setSelectedProject(project);
     setTargetPosition(position);
+    setClickOrigin(origin);
   }
 
   function handleClose() {
     setSelectedProject(null);
     setTargetPosition(null);
+    setClickOrigin(null);
   }
 
   return (
@@ -124,7 +127,7 @@ export default function App() {
         </Canvas>
 
         {selectedProject && (
-          <ProjectCard project={selectedProject} onClose={handleClose} />
+          <ProjectCard project={selectedProject} onClose={handleClose} clickOrigin={clickOrigin} />
         )}
 
         {!selectedProject && (

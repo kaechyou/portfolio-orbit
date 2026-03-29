@@ -8,7 +8,7 @@ interface Props {
   project: Project;
   index: number;
   total: number;
-  onSelect: (project: Project, position: [number, number, number]) => void;
+  onSelect: (project: Project, position: [number, number, number], clickOrigin: { x: number; y: number }) => void;
 }
 
 export default function FloatingObject({ project, index, total, onSelect }: Props) {
@@ -78,7 +78,8 @@ export default function FloatingObject({ project, index, total, onSelect }: Prop
         <group
           onClick={(e) => {
             e.stopPropagation();
-            onSelect(project, [x, height, z]);
+            const { clientX, clientY } = e.nativeEvent as PointerEvent;
+            onSelect(project, [x, height, z], { x: clientX, y: clientY });
           }}
           onPointerOver={() => {
             setHovered(true);
@@ -179,7 +180,7 @@ export default function FloatingObject({ project, index, total, onSelect }: Prop
           <Text
             position={[0, -0.19, 0.035]}
             fontSize={0.08}
-            color="#c8d8f0"
+            color="#b8c8de"
             anchorX="center"
             anchorY="middle"
             letterSpacing={0.04}

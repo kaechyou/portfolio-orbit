@@ -8,7 +8,7 @@ import FlowerPot from "./FlowerPot";
 import CoffeeTable from "./CoffeeTable";
 
 interface Props {
-  onSelect: (project: Project, position: [number, number, number]) => void;
+  onSelect: (project: Project, position: [number, number, number], clickOrigin: { x: number; y: number }) => void;
   targetPosition: [number, number, number] | null;
 }
 
@@ -59,7 +59,7 @@ export default function Scene({ onSelect, targetPosition }: Props) {
         cellColor="#1c3053"
         sectionSize={5}
         sectionThickness={0.8}
-        sectionColor="#edefef"
+        sectionColor="#1a3a5c"
         fadeDistance={28}
         fadeStrength={2}
         infiniteGrid
