@@ -9,10 +9,9 @@ import CoffeeTable from "./CoffeeTable";
 
 interface SceneProps {
   onSelect: (project: Project, position: [number, number, number], clickOrigin: { x: number; y: number }) => void;
-  targetPosition: [number, number, number] | null;
 }
 
-export default function Scene({ onSelect, targetPosition }: SceneProps) {
+export default function Scene({ onSelect }: SceneProps) {
   const projects = useProjects();
 
   return (

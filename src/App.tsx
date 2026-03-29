@@ -1,6 +1,6 @@
-import { Suspense, useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Canvas, useThree } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { EffectComposer, Bloom, Vignette } from "@react-three/postprocessing";
 import Scene from "./components/Scene";
@@ -10,8 +10,11 @@ import HeroIntro from "./components/HeroIntro";
 import ControlsHint from "./components/ControlsHint";
 import { PerspectiveCamera } from "three";
 import { Project } from "./types";
+import { useProjects } from "./hooks";
 import ProjectCard from "./components/ProjectCard";
 import styles from "./App.module.css";
+import { useRef } from "react";
+import { useFrame } from "@react-three/fiber";
 
 function SceneReady({ onReady }: { onReady: () => void }) {
   const called = useRef(false);
@@ -45,21 +48,31 @@ function ResponsiveFov() {
 
 export default function App() {
   const { t } = useTranslation();
+  const projects = useProjects();
   const [ready, setReady] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [targetPosition, setTargetPosition] = useState<[number, number, number] | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [clickOrigin, setClickOrigin] = useState<{ x: number; y: number } | null>(null);
 
-  function handleSelect(project: Project, position: [number, number, number], origin: { x: number; y: number }) {
-    setSelectedProject(project);
-    setTargetPosition(position);
+  function handleSelect(project: Project, _position: [number, number, number], origin: { x: number; y: number }) {
+    const idx = projects.findIndex(p => p.id === project.id);
+    setSelectedIndex(idx);
     setClickOrigin(origin);
   }
 
+  function handleNavigate(i: number) {
+    setSelectedIndex(i);
+    setClickOrigin(null);
+  }
+
+  function handleFocusWork() {
+    setMenuOpen(false);
+    setSelectedIndex(0);
+    setClickOrigin(null);
+  }
+
   function handleClose() {
-    setSelectedProject(null);
-    setTargetPosition(null);
+    setSelectedIndex(null);
     setClickOrigin(null);
   }
 
@@ -71,7 +84,7 @@ export default function App() {
         </span>
         <nav className={styles.siteNav}>
           <a href="#about">{t('nav.about')}</a>
-          <a href="#projects">{t('nav.work')}</a>
+          <a href="#projects" onClick={handleFocusWork}>{t('nav.work')}</a>
           <a href="#contact">{t('nav.contact')}</a>
           <LanguageSwitcher />
           <button className={styles.burgerBtn} onClick={() => setMenuOpen(true)} aria-label="Menu">
@@ -84,7 +97,7 @@ export default function App() {
         <div className={styles.mobileNavOverlay} onClick={() => setMenuOpen(false)}>
           <CloseButton onClick={(e) => { e?.stopPropagation(); setMenuOpen(false); }} className={styles.closeBtn} ariaLabel="Close menu" />
           <a href="#about" onClick={() => setMenuOpen(false)}>{t('nav.about')}</a>
-          <a href="#projects" onClick={() => setMenuOpen(false)}>{t('nav.work')}</a>
+          <a href="#projects" onClick={handleFocusWork}>{t('nav.work')}</a>
           <a href="#contact" onClick={() => setMenuOpen(false)}>{t('nav.contact')}</a>
         </div>
       )}
@@ -101,7 +114,7 @@ export default function App() {
           <fog attach="fog" args={["#05080f", 18, 38]} />
 
           <Suspense fallback={null}>
-            <Scene onSelect={handleSelect} targetPosition={targetPosition} />
+            <Scene onSelect={handleSelect} />
             <SceneReady onReady={() => setReady(true)} />
             <ResponsiveFov />
             <EffectComposer>
@@ -127,11 +140,17 @@ export default function App() {
           />
         </Canvas>
 
-        {selectedProject && (
-          <ProjectCard project={selectedProject} onClose={handleClose} clickOrigin={clickOrigin} />
+        {selectedIndex !== null && (
+          <ProjectCard
+            projects={projects}
+            index={selectedIndex}
+            onNavigate={handleNavigate}
+            onClose={handleClose}
+            clickOrigin={clickOrigin}
+          />
         )}
 
-        {!selectedProject && (
+        {selectedIndex === null && (
           <>
             <HeroIntro ready={ready} />
             <ControlsHint />
