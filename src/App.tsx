@@ -1,11 +1,14 @@
 import { Suspense, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { EffectComposer, Bloom, Vignette } from "@react-three/postprocessing";
 import Scene from "./components/Scene";
+import LanguageSwitcher from "./components/LanguageSwitcher";
 import { Project } from "./types";
 
 export default function App() {
+  const { t } = useTranslation();
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [targetPosition, setTargetPosition] = useState<[number, number, number] | null>(null);
 
@@ -18,12 +21,13 @@ export default function App() {
     <div className="app-root">
       <header className="site-header">
         <span className="site-name">
-          <span>◆</span> Portfolio
+          <span>◆</span> {t('common.portfolio')}
         </span>
         <nav className="site-nav">
-          <a href="#about">About</a>
-          <a href="#projects">Work</a>
-          <a href="#contact">Contact</a>
+          <a href="#about">{t('nav.about')}</a>
+          <a href="#projects">{t('nav.work')}</a>
+          <a href="#contact">{t('nav.contact')}</a>
+          <LanguageSwitcher />
         </nav>
       </header>
 
@@ -62,7 +66,7 @@ export default function App() {
         </Canvas>
 
         {!selectedProject && (
-          <div className="hint-label">Click any project to explore</div>
+          <div className="hint-label">{t('common.hint')}</div>
         )}
       </div>
     </div>

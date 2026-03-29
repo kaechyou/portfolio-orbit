@@ -116,7 +116,7 @@ export default function FloatingObject({ project, index, total, onSelect }: Prop
           {imageLoaded && project.logo ? (
             <Image
               url={project.logo}
-              position={[-0.4, 0.1, 0.035]}
+              position={[-0.5, 0.1, 0.035]}
               scale={[0.2, 0.2]}
               transparent
               toneMapped={false}
@@ -126,7 +126,7 @@ export default function FloatingObject({ project, index, total, onSelect }: Prop
           {/* fallback initials */}
           {!imageLoaded && (
             <Text
-              position={[-0.4, 0.1, 0.035]}
+              position={[-0.5, 0.1, 0.035]}
               fontSize={0.15}
               color={project.logoColor || project.accent}
               anchorX="center"
@@ -139,7 +139,7 @@ export default function FloatingObject({ project, index, total, onSelect }: Prop
 
           {/* project name */}
           <Text
-            position={[-0.15, 0.1, 0.035]}
+            position={[-0.25, 0.1, 0.035]}
             fontSize={0.12}
             color="#c8d8f0"
             anchorX="left"

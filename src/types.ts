@@ -1,8 +1,5 @@
-type Locale = "ru" | "en";
-type LocalizedString = Record<Locale, string>;
-
 interface ProjectScreen {
-  label: LocalizedString;
+  label: string;
   icon: string;
   src: string;
 }
@@ -10,7 +7,7 @@ interface ProjectScreen {
 export interface Project {
   id: string;
   title: string;
-  description: LocalizedString;
+  description: string;
   domains: string[];
   tags: string[];
   accent: string;

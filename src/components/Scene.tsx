@@ -1,6 +1,6 @@
 import { Sparkles, Grid } from "@react-three/drei";
 import FloatingObject from "./FloatingObject";
-import { projects } from "../data/projects";
+import { useProjects } from "../data/useProjects";
 import { Project } from "../types";
 import { RisingParticles, WarmParticles } from "./Particles";
 
@@ -10,6 +10,8 @@ interface Props {
 }
 
 export default function Scene({ onSelect, targetPosition }: Props) {
+  const projects = useProjects();
+
   return (
     <>
       <directionalLight
