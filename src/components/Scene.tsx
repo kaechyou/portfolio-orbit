@@ -4,6 +4,8 @@ import { useProjects } from "../data/useProjects";
 import { Project } from "../types";
 import { RisingParticles } from "./RisingParticles";
 import Character from "./Character";
+import FlowerPot from "./FlowerPot";
+import CoffeeTable from "./CoffeeTable";
 
 interface Props {
   onSelect: (project: Project, position: [number, number, number]) => void;
@@ -36,6 +38,8 @@ export default function Scene({ onSelect, targetPosition }: Props) {
       <ambientLight intensity={0.55} color="#8ab4ff" />
 
       <Character />
+      <FlowerPot />
+      <CoffeeTable />
 
       {projects.map((project, i) => (
         <FloatingObject
