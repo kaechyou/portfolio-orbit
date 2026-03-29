@@ -54,7 +54,7 @@ export default function App() {
     <div className="app-root">
       <header className="site-header">
         <span className="site-name">
-          <span>◆</span> {t('common.portfolio')}
+          {t('common.portfolio')}
         </span>
         <nav className="site-nav">
           <a href="#about">{t('nav.about')}</a>
