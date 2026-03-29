@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { Project } from "../types";
-import { projects } from "./projects";
+import { projects } from "../data/projects";
 
 export function useProjects(): Project[] {
   const { t } = useTranslation();

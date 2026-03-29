@@ -7,6 +7,7 @@ import Scene from "./components/Scene";
 import LanguageSwitcher from './components/LanguageSwitcher';
 import { CloseButton } from './components/CloseButton';
 import HeroIntro from "./components/HeroIntro";
+import ControlsHint from "./components/ControlsHint";
 import { PerspectiveCamera } from "three";
 import { Project } from "./types";
 import ProjectCard from "./components/ProjectCard";
@@ -132,7 +133,7 @@ export default function App() {
         {!selectedProject && (
           <>
             <HeroIntro />
-            <div className="hint-label">{t('common.hint')}</div>
+            <ControlsHint />
           </>
         )}
       </div>

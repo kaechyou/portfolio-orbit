@@ -1,6 +1,6 @@
 import { Grid } from "@react-three/drei";
 import FloatingObject from "./FloatingObject";
-import { useProjects } from "../data/useProjects";
+import { useProjects } from "../hooks";
 import { Project } from "../types";
 import { RisingParticles } from "./RisingParticles";
 import Character from "./Character";

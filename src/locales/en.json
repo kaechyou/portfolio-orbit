@@ -17,6 +17,21 @@
     "langEnglish": "English",
     "langRussian": "Russian"
   },
+  "controls": {
+    "title": "Controls",
+    "toggle": "Toggle controls hint",
+    "hintMouse": "Drag to rotate • Scroll to zoom • WASD to move",
+    "hintTouch": "Drag to rotate • Pinch to zoom",
+    "mouse": "Mouse",
+    "touch": "Touch",
+    "character": "Character",
+    "rotate": "Drag to rotate camera",
+    "zoom": "Scroll to zoom",
+    "move": "Move character",
+    "jump": "Jump",
+    "dragRotate": "One finger drag to rotate",
+    "pinchZoom": "Pinch to zoom"
+  },
   "projects": {
     "geo-intelligence": {
       "company": "Inzhgidroproekt",

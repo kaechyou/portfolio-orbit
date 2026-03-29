@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
+import { useEscapeKey } from "../hooks";
 import { CloseButton } from './CloseButton';
 import { Project } from "../types";
 
@@ -31,15 +32,7 @@ export default function ProjectCard({ project, onClose, clickOrigin }: Props) {
     return () => window.removeEventListener("keydown", onKey);
   }, [lightboxIndex, project.screens.length]);
 
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && lightboxIndex === null) {
-        handleClose();
-      }
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [lightboxIndex, handleClose]);
+  useEscapeKey(handleClose, lightboxIndex === null);
 
   return (
     <div
