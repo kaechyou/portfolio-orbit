@@ -1,0 +1,104 @@
+.cardInner {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.accentBar {
+  height: 6px;
+  width: 100%;
+  box-shadow:
+    0 2px 24px color-mix(in srgb, var(--card-accent, #00d4ff) 55%, transparent),
+    0 0 60px color-mix(in srgb, var(--card-accent, #00d4ff) 20%, transparent);
+}
+
+.body {
+  padding: 36px 40px 40px;
+  overflow-y: auto;
+
+  @media (max-width: 680px) {
+    padding: 16px 20px 20px;
+  }
+}
+
+.header {
+  margin-bottom: 24px;
+}
+
+.title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+  margin: 0;
+}
+
+.section {
+  margin-bottom: 24px;
+}
+
+.sectionTitle {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--card-accent, #00d4ff);
+  margin: 0 0 12px 0;
+  opacity: 0.9;
+}
+
+.bio {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  margin: 0;
+  white-space: pre-line;
+}
+
+.techGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.techItem {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.techItem:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: color-mix(in srgb, var(--card-accent, #00d4ff) 30%, rgba(255, 255, 255, 0.15));
+}
+
+.approachList {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.approachList li {
+  padding-left: 1.1rem;
+  position: relative;
+}
+
+.approachList li::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  color: var(--card-accent);
+  opacity: 0.7;
+}

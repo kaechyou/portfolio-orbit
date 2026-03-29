@@ -12,6 +12,8 @@ import { PerspectiveCamera } from "three";
 import { Project } from "./types";
 import { useProjects } from "./hooks";
 import ProjectCard from "./components/ProjectCard";
+import { ContactCard } from "./components/ContactCard";
+import { AboutCard } from "./components/AboutCard";
 import styles from "./App.module.css";
 import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
@@ -53,6 +55,8 @@ export default function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
   const [clickOrigin, setClickOrigin] = useState<{ x: number; y: number } | null>(null);
+  const [aboutOpen, setAboutOpen] = useState(false);
+  const [contactOpen, setContactOpen] = useState(false);
 
   function handleSelect(project: Project, _position: [number, number, number], origin: { x: number; y: number }) {
     const idx = projects.findIndex(p => p.id === project.id);
@@ -76,6 +80,28 @@ export default function App() {
     setClickOrigin(null);
   }
 
+  function handleFocusAbout() {
+    setMenuOpen(false);
+    setAboutOpen(true);
+    setContactOpen(false);
+    setSelectedIndex(null);
+  }
+
+  function handleCloseAbout() {
+    setAboutOpen(false);
+  }
+
+  function handleFocusContact() {
+    setMenuOpen(false);
+    setContactOpen(true);
+    setAboutOpen(false);
+    setSelectedIndex(null);
+  }
+
+  function handleCloseContact() {
+    setContactOpen(false);
+  }
+
   return (
     <div className={styles.appRoot}>
       <header className={styles.siteHeader}>
@@ -83,9 +109,9 @@ export default function App() {
           {t('common.portfolio')}
         </span>
         <nav className={styles.siteNav}>
-          <a href="#about">{t('nav.about')}</a>
+          <a href="#about" onClick={(e) => { e.preventDefault(); handleFocusAbout(); }}>{t('nav.about')}</a>
           <a href="#projects" onClick={handleFocusWork}>{t('nav.work')}</a>
-          <a href="#contact">{t('nav.contact')}</a>
+          <a href="#contact" onClick={(e) => { e.preventDefault(); handleFocusContact(); }}>{t('nav.contact')}</a>
           <LanguageSwitcher />
           <button className={styles.burgerBtn} onClick={() => setMenuOpen(true)} aria-label="Menu">
             <span /><span /><span />
@@ -96,9 +122,9 @@ export default function App() {
       {menuOpen && (
         <div className={styles.mobileNavOverlay} onClick={() => setMenuOpen(false)}>
           <CloseButton onClick={(e) => { e?.stopPropagation(); setMenuOpen(false); }} className={styles.closeBtn} ariaLabel="Close menu" />
-          <a href="#about" onClick={() => setMenuOpen(false)}>{t('nav.about')}</a>
+          <a href="#about" onClick={(e) => { e.preventDefault(); handleFocusAbout(); setMenuOpen(false); }}>{t('nav.about')}</a>
           <a href="#projects" onClick={handleFocusWork}>{t('nav.work')}</a>
-          <a href="#contact" onClick={() => setMenuOpen(false)}>{t('nav.contact')}</a>
+          <a href="#contact" onClick={(e) => { e.preventDefault(); handleFocusContact(); setMenuOpen(false); }}>{t('nav.contact')}</a>
         </div>
       )}
 
@@ -149,6 +175,10 @@ export default function App() {
             clickOrigin={clickOrigin}
           />
         )}
+
+        {aboutOpen && <AboutCard onClose={handleCloseAbout} />}
+
+        {contactOpen && <ContactCard onClose={handleCloseContact} />}
 
         {selectedIndex === null && (
           <>

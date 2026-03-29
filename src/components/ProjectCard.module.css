@@ -1,18 +1,8 @@
-.overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  background: rgba(0, 0, 0, 0.72);
-  backdrop-filter: blur(5px);
-  animation: overlayIn 0.22s ease;
-}
-
 .projectNav {
-  flex-shrink: 0;
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 101;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: #fff;
@@ -36,15 +26,21 @@
   }
 }
 
-.cardColumn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 14px;
-  min-width: 0;
+.projectNavPrev {
+  left: max(16px, calc(50% - 430px - 64px));
 }
 
+.projectNavNext {
+  right: max(16px, calc(50% - 430px - 64px));
+}
+
+
 .dots {
+  position: fixed;
+  bottom: max(16px, calc(50% - 46vh - 40px));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 101;
   display: flex;
   gap: 8px;
 }
@@ -69,78 +65,12 @@
   transform: scale(1.35);
 }
 
-.overlay.closing {
-  animation: overlayOut 0.35s ease forwards;
-}
 
-.card {
-  overflow: hidden;
-  position: relative;
-  backdrop-filter: blur(5.5px);
-  -webkit-backdrop-filter: blur(5.5px);
-  border-radius: 20px;
-  width: min(860px, calc(100vw - 32px));
-  max-height: min(92dvh, 900px);
+.cardInner {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  animation: cardIn 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-  border: 1px solid transparent;
-  background-clip: padding-box;
-  background:
-    linear-gradient(rgba(8, 12, 28, 0.94), rgba(8, 12, 28, 0.94)) padding-box,
-    linear-gradient(135deg,
-      rgba(255, 255, 255, 0.35),
-      rgba(255, 255, 255, 0.05) 40%,
-      rgba(0, 0, 0, 0.4)) border-box;
-  box-shadow:
-    0 0 0 1px rgba(255, 255, 255, 0.04),
-    inset 0 1px 0 rgba(255, 255, 255, 0.25),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.4),
-    0 30px 80px rgba(0, 0, 0, 0.7);
-
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    pointer-events: none;
-    background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.35), transparent 40%),
-      linear-gradient(0deg, rgba(255, 255, 255, 0.08), transparent 30%);
-    mask:
-      linear-gradient(#000 0 0) content-box,
-      linear-gradient(#000 0 0);
-    mask-composite: exclude;
-    padding: 1px;
-  }
-
-  &::after {
-    opacity: 0.4;
-    transition: opacity 0.2s;
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    pointer-events: none;
-    padding: 1.5px;
-    background:
-      linear-gradient(120deg,
-        transparent 30%,
-        color-mix(in srgb, var(--card-accent, #00d4ff) 90%, transparent) 48%,
-        color-mix(in srgb, var(--card-accent, #00d4ff) 90%, transparent) 52%,
-        transparent 70%);
-    background-size: 250% 250%;
-    animation: edgeShine 25.5s linear infinite;
-    mask:
-      linear-gradient(#000 0 0) content-box,
-      linear-gradient(#000 0 0);
-    mask-composite: exclude;
-  }
-}
-
-.card.closing {
-  animation: cardOut 0.35s cubic-bezier(0.55, 0, 1, 0.45) forwards;
+  height: 100%;
 }
 
 .content {
@@ -404,58 +334,6 @@
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@keyframes overlayIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes overlayOut {
-  from {
-    opacity: 1;
-  }
-
-  to {
-    opacity: 0;
-  }
-}
-
-@keyframes cardIn {
-  0% {
-    transform: translate(var(--origin-x, 0px), var(--origin-y, 0px)) scale(0.2);
-    opacity: 0;
-  }
-
-  30% {
-    opacity: 1;
-  }
-
-  100% {
-    transform: translate(0, 0) scale(1);
-    opacity: 1;
-  }
-}
-
-@keyframes cardOut {
-  0% {
-    transform: translate(0, 0) scale(1);
-    opacity: 1;
-  }
-
-  70% {
-    opacity: 0;
-  }
-
-  100% {
-    transform: translate(var(--origin-x, 0px), var(--origin-y, 0px)) scale(0.2);
-    opacity: 0;
   }
 }
 

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { useEscapeKey } from "../hooks";
-import { CloseButton } from './CloseButton';
+import { CloseButton } from "./CloseButton";
+import { OverlayCard } from "./OverlayCard";
 import { Project } from "../types";
 import styles from "./ProjectCard.module.css";
 
@@ -17,7 +17,6 @@ type NavPhase = 'idle' | 'exiting' | 'entering';
 
 export default function ProjectCard({ projects, index, onNavigate, onClose, clickOrigin }: ProjectCardProps) {
   const total = projects.length;
-  const [closing, setClosing] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const [displayIndex, setDisplayIndex] = useState(index);
   const [navPhase, setNavPhase] = useState<NavPhase>('idle');
@@ -25,9 +24,6 @@ export default function ProjectCard({ projects, index, onNavigate, onClose, clic
   const touchStartX = useRef(0);
 
   const project = projects[displayIndex];
-
-  const originX = clickOrigin ? clickOrigin.x - window.innerWidth / 2 : 0;
-  const originY = clickOrigin ? clickOrigin.y - window.innerHeight / 2 : 0;
 
   useEffect(() => {
     if (index === displayIndex) return;
@@ -44,12 +40,6 @@ export default function ProjectCard({ projects, index, onNavigate, onClose, clic
       setNavPhase('idle');
     }
   };
-
-  const handleClose = useCallback(() => {
-    if (closing) return;
-    setNavPhase('idle');
-    setClosing(true);
-  }, [closing]);
 
   const navigatePrev = useCallback(() => onNavigate((index - 1 + total) % total), [index, total, onNavigate]);
   const navigateNext = useCallback(() => onNavigate((index + 1) % total), [index, total, onNavigate]);
@@ -69,25 +59,12 @@ export default function ProjectCard({ projects, index, onNavigate, onClose, clic
     return () => window.removeEventListener("keydown", onKey);
   }, [lightboxIndex, project.screens.length, navigatePrev, navigateNext]);
 
-  useEscapeKey(handleClose, lightboxIndex === null);
-
   return (
-    <div
-      className={`${styles.overlay}${closing ? ` ${styles.closing}` : ''}`}
-      onClick={handleClose}
-    >
-      {total > 1 && (
-        <button
-          className={`${styles.projectNav} ${styles.projectNavPrev}`}
-          onClick={e => { e.stopPropagation(); navigatePrev(); }}
-          aria-label="Previous project"
-        >‹</button>
-      )}
-
-      <div className={styles.cardColumn} onClick={e => e.stopPropagation()}>
+    <>
+      <OverlayCard onClose={onClose} clickOrigin={clickOrigin}>
         <div
-          className={`${styles.card}${closing ? ` ${styles.closing}` : ''}`}
-          onAnimationEnd={(e) => { if (closing && e.target === e.currentTarget) onClose(); }}
+          className={styles.cardInner}
+          style={{ "--card-accent": project.accent } as React.CSSProperties}
           onTouchStart={e => { touchStartX.current = e.touches[0].clientX; }}
           onTouchEnd={e => {
             const dx = e.changedTouches[0].clientX - touchStartX.current;
@@ -95,17 +72,9 @@ export default function ProjectCard({ projects, index, onNavigate, onClose, clic
               dx < 0 ? navigateNext() : navigatePrev();
             }
           }}
-          style={{
-            "--card-accent": project.accent,
-            "--origin-x": `${originX}px`,
-            "--origin-y": `${originY}px`,
-          } as React.CSSProperties}
         >
-          {/* <div className={styles.specular}></div> */}
-          <CloseButton onClick={() => handleClose()} className={styles.closeBtn} />
-
           <div
-            className={`${styles.content}${!closing && navPhase === 'exiting' ? ` ${styles.contentExiting}` : !closing && navPhase === 'entering' ? ` ${styles.contentEntering}` : ''}`}
+            className={`${styles.content}${navPhase === 'exiting' ? ` ${styles.contentExiting}` : navPhase === 'entering' ? ` ${styles.contentEntering}` : ''}`}
             onAnimationEnd={(e) => { if (e.target === e.currentTarget) handleContentAnimEnd(); }}
           >
             <div className={styles.accentBar}
@@ -200,32 +169,38 @@ export default function ProjectCard({ projects, index, onNavigate, onClose, clic
                   document.body,
                 );
               })()}
-
             </div>
           </div>
         </div>
-
-        {total > 1 && (
-          <div className={styles.dots}>
-            {projects.map((_, i) => (
-              <button
-                key={i}
-                className={`${styles.dot}${i === index ? ` ${styles.dotActive}` : ''}`}
-                onClick={() => onNavigate(i)}
-                aria-label={`Project ${i + 1}`}
-              />
-            ))}
-          </div>
-        )}
-      </div>
+      </OverlayCard>
 
       {total > 1 && (
-        <button
-          className={`${styles.projectNav} ${styles.projectNavNext}`}
-          onClick={e => { e.stopPropagation(); navigateNext(); }}
-          aria-label="Next project"
-        >›</button>
+        <div className={styles.dots}>
+          {projects.map((_, i) => (
+            <button
+              key={i}
+              className={`${styles.dot}${i === index ? ` ${styles.dotActive}` : ''}`}
+              onClick={() => onNavigate(i)}
+              aria-label={`Project ${i + 1}`}
+            />
+          ))}
+        </div>
       )}
-    </div>
+
+      {total > 1 && (
+        <>
+          <button
+            className={`${styles.projectNav} ${styles.projectNavPrev}`}
+            onClick={e => { e.stopPropagation(); navigatePrev(); }}
+            aria-label="Previous project"
+          >‹</button>
+          <button
+            className={`${styles.projectNav} ${styles.projectNavNext}`}
+            onClick={e => { e.stopPropagation(); navigateNext(); }}
+            aria-label="Next project"
+          >›</button>
+        </>
+      )}
+    </>
   );
 }

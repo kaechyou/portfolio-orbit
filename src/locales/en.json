@@ -10,6 +10,37 @@
     "work": "Projects",
     "contact": "Contact"
   },
+  "about": {
+    "title": "About Me",
+    "bioTitle": "Background",
+    "bio": "I'm a Full-Stack / Front-End Developer with 6+ years of experience building scalable web applications and AI-powered platforms.\n\nMy journey started with vanilla JavaScript and evolved through React ecosystems, Node.js backends, and modern AI integrations. I've worked across startups and enterprise environments, from founding teams to established B2B SaaS companies.\n\nI specialize in turning complex requirements into clean, performant code — whether it's a real-time dashboard, an OCR pipeline, or a design system of 50+ components.",
+    "techStackTitle": "Tech Stack",
+    "techStack": [
+      "React",
+      "Next.js",
+      "TypeScript",
+      "Node.js",
+      "NestJS",
+      "PostgreSQL",
+      "Docker",
+      "AI/LLM Integration",
+      "D3.js",
+      "TailwindCSS"
+    ],
+    "approachTitle": "How I Work",
+    "approach": [
+      "Clean architecture first — scalable, maintainable code that grows with the product",
+      "User-centric design — every feature starts with the experience, not the tech",
+      "Full ownership — from architecture decisions to deployment and monitoring",
+      "Continuous learning — staying current with AI tools and modern frameworks",
+      "Collaboration — mentoring, code reviews, and clear documentation"
+    ]
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "subtitle": "Open to new opportunities and interesting projects",
+    "emailLabel": "Email"
+  },
   "common": {
     "portfolio": "Ekaterina Gnedenko",
     "hint": "Click any project to explore",
