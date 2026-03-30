@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { createPortal } from "react-dom";
-import { CloseButton } from "./CloseButton";
 import { OverlayCard } from "./OverlayCard";
+import { Lightbox } from "./Lightbox";
 import { Project } from "../types";
 import styles from "./ProjectCard.module.css";
 
@@ -46,18 +45,13 @@ export default function ProjectCard({ projects, index, onNavigate, onClose, clic
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (lightboxIndex !== null) {
-        if (e.key === "Escape") setLightboxIndex(null);
-        if (e.key === "ArrowRight") setLightboxIndex(i => i === null ? null : (i + 1) % project.screens.length);
-        if (e.key === "ArrowLeft") setLightboxIndex(i => i === null ? null : (i - 1 + project.screens.length) % project.screens.length);
-      } else {
-        if (e.key === "ArrowLeft") navigatePrev();
-        if (e.key === "ArrowRight") navigateNext();
-      }
+      if (lightboxIndex !== null) return;
+      if (e.key === "ArrowLeft") navigatePrev();
+      if (e.key === "ArrowRight") navigateNext();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [lightboxIndex, project.screens.length, navigatePrev, navigateNext]);
+  }, [lightboxIndex, navigatePrev, navigateNext]);
 
   return (
     <>
@@ -74,7 +68,9 @@ export default function ProjectCard({ projects, index, onNavigate, onClose, clic
           }}
         >
           <div
-            className={`${styles.content}${navPhase === 'exiting' ? ` ${styles.contentExiting}` : navPhase === 'entering' ? ` ${styles.contentEntering}` : ''}`}
+            className={`${styles.content}${navPhase === 'exiting' ? ` ${styles.contentExiting}` :
+                navPhase === 'entering' ? ` ${styles.contentEntering}` : ''
+              }`}
             onAnimationEnd={(e) => { if (e.target === e.currentTarget) handleContentAnimEnd(); }}
           >
             <div className={styles.accentBar}
@@ -138,37 +134,14 @@ export default function ProjectCard({ projects, index, onNavigate, onClose, clic
                 ))}
               </div>
 
-              {lightboxIndex !== null && (() => {
-                const screen = project.screens[lightboxIndex];
-                const screenTotal = project.screens.length;
-                return createPortal(
-                  <div className={styles.lightbox} onClick={() => setLightboxIndex(null)}>
-                    <CloseButton onClick={(e) => { e.stopPropagation(); setLightboxIndex(null); }} className={styles.closeBtn} />
-                    {screenTotal > 1 && (
-                      <button
-                        className={`${styles.lightboxNav} ${styles.lightboxNavPrev}`}
-                        onClick={(e) => { e.stopPropagation(); setLightboxIndex((lightboxIndex - 1 + screenTotal) % screenTotal); }}
-                        aria-label="Previous"
-                      >‹</button>
-                    )}
-                    <img
-                      src={screen.src}
-                      alt={screen.label}
-                      className={styles.lightboxImg}
-                      onClick={(e) => e.stopPropagation()}
-                    />
-                    {screenTotal > 1 && (
-                      <button
-                        className={`${styles.lightboxNav} ${styles.lightboxNavNext}`}
-                        onClick={(e) => { e.stopPropagation(); setLightboxIndex((lightboxIndex + 1) % screenTotal); }}
-                        aria-label="Next"
-                      >›</button>
-                    )}
-                    <p className={styles.lightboxLabel}>{screen.label} <span className={styles.lightboxCounter}>{lightboxIndex + 1} / {screenTotal}</span></p>
-                  </div>,
-                  document.body,
-                );
-              })()}
+              {lightboxIndex !== null && (
+                <Lightbox
+                  screens={project.screens}
+                  index={lightboxIndex}
+                  onClose={() => setLightboxIndex(null)}
+                  onNavigate={setLightboxIndex}
+                />
+              )}
             </div>
           </div>
         </div>

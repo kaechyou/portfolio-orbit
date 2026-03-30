@@ -1,52 +1,20 @@
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Canvas, useThree } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { EffectComposer, Bloom, Vignette } from "@react-three/postprocessing";
+import { SceneReady, ResponsiveFov } from "./components/r3f";
 import Scene from "./components/Scene";
 import LanguageSwitcher from './components/LanguageSwitcher';
 import { CloseButton } from './components/CloseButton';
 import HeroIntro from "./components/HeroIntro";
 import ControlsHint from "./components/ControlsHint";
-import { PerspectiveCamera } from "three";
 import { Project } from "./types";
 import { useProjects } from "./hooks";
 import ProjectCard from "./components/ProjectCard";
 import { ContactCard } from "./components/ContactCard";
 import { AboutCard } from "./components/AboutCard";
 import styles from "./App.module.css";
-import { useRef } from "react";
-import { useFrame } from "@react-three/fiber";
-
-function SceneReady({ onReady }: { onReady: () => void }) {
-  const called = useRef(false);
-  const frame = useRef(0);
-
-  useFrame(() => {
-    if (called.current) return;
-    frame.current++;
-    if (frame.current >= 3) {
-      called.current = true;
-      onReady();
-    }
-  });
-
-  return null;
-}
-
-function ResponsiveFov() {
-  const camera = useThree((s) => s.camera);
-  const width = useThree((s) => s.size.width);
-
-  useEffect(() => {
-    if (camera instanceof PerspectiveCamera) {
-      camera.fov = width < 768 ? 65 : 48;
-      camera.updateProjectionMatrix();
-    }
-  }, [camera, width]);
-
-  return null;
-}
 
 export default function App() {
   const { t } = useTranslation();
